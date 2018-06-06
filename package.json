@@ -1,0 +1,22 @@
+{
+  "name": "alexa-hackkit",
+  "version": "0.0.0",
+  "description": "A lightweight, extensible boilerplate for building custom Alexa skills",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/megaboy101/alexa-hackkit.git"
+  },
+  "author": "Jacob Bleser",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/megaboy101/alexa-hackkit/issues"
+  },
+  "homepage": "https://github.com/megaboy101/alexa-hackkit#readme",
+  "devDependencies": {
+    "lerna": "^2.11.0"
+  }
+}

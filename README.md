@@ -54,3 +54,30 @@ Call 'ask api simulate-skill -l en-US -s SKILL_ID[amzn1.ask.skill.7bb3be41-90d1-
 Copy the response id for later
 
 Call 'ask api get-simulation -s SKILL_ID[amzn1.ask.skill.7bb3be41-90d1-4d35-a11e-7ae6810a3649] -i RESPONSE_ID[7625de32-8d83-46ed-896c-a5ade1753c5c] -p PROFILE[default]' to get the raw response text from the simulation
+
+
+
+
+
+
+README Template
+==============
+
+Prerequisites
+--------------
+
+- Setup an AWS Account
+- Setup an Amazon Developer Account
+
+
+CLI Overview
+==============
+
+Init
+--------------
+
+- Check if AWS credentials are stored in .aws credentials file or as environment variables
+  - Throw security warning if credentials are stored in environment variables
+- If credentials cannot be found, create prompt to create AWS credentials file for user, given access key and secret key as input
+- Prompt user with amazon developer login
+- Store login credentials in template config file for later use in boilerplate commands

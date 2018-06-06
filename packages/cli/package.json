@@ -1,0 +1,11 @@
+{
+  "name": "alexa-hackkit-cli",
+  "version": "0.0.0",
+  "description": "Project generator cli for the alexa-hackkit",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jacob Bleser",
+  "license": "MIT"
+}

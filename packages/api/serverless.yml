@@ -55,8 +55,10 @@ region: us-east-1
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handler.hello
+  mySkill:
+    handler: handler.mySkill
+    events:
+      - alexaSkill: MY_SKILL_ID
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

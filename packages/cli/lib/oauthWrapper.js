@@ -36,7 +36,7 @@ module.exports.tokenRefreshAndRead = function(
   config,
   callback
 ) {
-  console.log("Reading and refreshing tokens if necessary");
+  // console.log("Reading and refreshing tokens if necessary");
   if (profile === PLACEHOLDER.ENVIRONMENT_VAR.PROFILE_NAME) {
     // if there's refreshToken, use that first since this profile is using env var,
     // cannot find whether accessToken expired or not.
@@ -59,11 +59,11 @@ module.exports.tokenRefreshAndRead = function(
     return;
   }
   if (!isTokenExpired(profile, config)) {
-    console.log("Token has not yet expired");
+    // console.log("Token has not yet expired");
     params.headers.Authorization = config.profiles[profile].token.access_token;
     callback(params, config);
   } else {
-    console.log("Token has expired, refreshing");
+    // console.log("Token has expired, refreshing");
     refreshToken(profile, (refreshedAccessToken, updatedConfig) => {
       params.headers.Authorization = refreshedAccessToken;
       callback(params, updatedConfig);
@@ -91,7 +91,7 @@ function refreshToken(profile, config, callback) {
 }
 
 function readToken(profile, config) {
-  console.log("Reading token");
+  // console.log("Reading token");
   if (profile === PLACEHOLDER.ENVIRONMENT_VAR.PROFILE_NAME) {
     return {
       access_token: "ACCESS_TOKEN_PLACE_HOLDER",
@@ -132,7 +132,7 @@ function writeToken(token, profile, config) {
 }
 
 function isTokenExpired(profile, config) {
-  console.log("Checking if token has expired");
+  // console.log("Checking if token has expired");
   let OAuth = module.exports.createOAuth();
   let token = OAuth.accessToken.create(readToken(profile, config));
   return token.expired();

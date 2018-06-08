@@ -1,7 +1,9 @@
 const figlet = require("figlet");
 const gradient = require("gradient-string");
 const signale = require("signale");
+const chalk = require("chalk");
 const program = require("commander");
+const generator = require("./lib/generator");
 const ask = require("./lib/configureAsk");
 
 // Define program
@@ -27,11 +29,28 @@ figlet.text(
     console.log("");
     console.log(banner);
 
-    init();
+    init().then(() => {
+      console.log(
+        chalk
+          .hex("#ffdf33")
+          .bold(
+            "\n\n🎉🎉🎉 Initialization complete (don't forget to install dependancies and initialize git), happy coding! 🎉🎉🎉\n\n"
+          )
+      );
+    });
   }
 );
 
 function init() {
-  console.log('Began init process');
-  ask.directInitProcess(null, "default", null);
+  return new Promise(res => {
+    generator.generateProjectConfig().then(projectConfig => {
+      ask.directInitProcess(null, "default", null).then(askConfig => {
+        generator.generate(projectConfig, askConfig);
+        res();
+      });
+    });
+  }).catch(err => {
+    console.error("Error in init function");
+    console.error(err);
+  });
 }

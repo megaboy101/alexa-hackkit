@@ -8,7 +8,7 @@ const mkdirp = require("mkdirp");
 const AWS_DISPLAY_PAGE_SIZE = 25;
 
 module.exports.awsResolver = function(askProfile, callback) {
-  console.log('Resolving AWS credentials');
+  // console.log('Resolving AWS credentials');
   const awsPath = path.join(os.homedir(), ".aws", "credentials");
   try {
     let awsProfileList = fs.existsSync(awsPath)
@@ -182,7 +182,7 @@ function _awsProfileResolver(awsProfileList, askProfile, callback) {
       });
   }
   else {
-    signale.info("Setting up ask profile: [" + askProfile + "]");
+    // signale.info("Setting up ask profile: [" + askProfile + "]");
     inquirer
       .prompt([
         {
@@ -195,7 +195,7 @@ function _awsProfileResolver(awsProfileList, askProfile, callback) {
         }
       ])
       .then(() => {
-        console.log('Resolved AWS config');
+        // console.log('Resolved AWS config');
         callback();
       });
   }

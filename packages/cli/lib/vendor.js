@@ -7,9 +7,9 @@ const VENDOR_PAGE_SIZE = 50;
 
 module.exports.setVendorId = function(profile, config) {
   return new Promise((res, rej) => {
-    console.log("Setting vendor ID");
+    // console.log("Setting vendor ID");
     callListVendor(profile, config, false).then(({ updatedConfig, data }) => {
-      console.log("Updated config retrieved");
+      // console.log("Updated config retrieved");
       if (!updatedConfig || !config) {
         return;
       }
@@ -23,32 +23,32 @@ module.exports.setVendorId = function(profile, config) {
       }
       if (vendorInfo.length === 1) {
         updatedConfig.profiles[profile].vendor_id = vendorInfo[0].id;
-        signale.success("Vendor ID set as " + vendorInfo[0].id + "\n");
-        signale.success("Profile [" + profile + "] initialized successfully.");
+        // signale.success("Vendor ID set as " + vendorInfo[0].id + "\n");
+        // signale.success("Profile [" + profile + "] initialized successfully.");
         res(updatedConfig);
       }
-      let vendorList = vendorInfo.map(vendor => {
-        return vendor.name + ": " + vendor.id;
-      });
-      inquirer
-        .prompt([
-          {
-            type: "rawlist",
-            message: "Choose the vendor ID for the skills you want to manage",
-            name: "selectedVendor",
-            pageSize: VENDOR_PAGE_SIZE,
-            choices: vendorList
-          }
-        ])
-        .then(answers => {
-          let vendorId = answers.selectedVendor.substr(
-            answers.selectedVendor.lastIndexOf(":") + 2
-          );
-          updatedConfig.profiles[profile].vendor_id = vendorId;
-          signale.success("Vendor ID updated for the profile.\n");
-          signale.success("Profile [" + profile + "] initialized successfully.");
-          res(updatedConfig);
-        });
+      // let vendorList = vendorInfo.map(vendor => {
+      //   return vendor.name + ": " + vendor.id;
+      // });
+      // inquirer
+      //   .prompt([
+      //     {
+      //       type: "rawlist",
+      //       message: "Choose the vendor ID for the skills you want to manage",
+      //       name: "selectedVendor",
+      //       pageSize: VENDOR_PAGE_SIZE,
+      //       choices: vendorList
+      //     }
+      //   ])
+      //   .then(answers => {
+      //     let vendorId = answers.selectedVendor.substr(
+      //       answers.selectedVendor.lastIndexOf(":") + 2
+      //     );
+      //     updatedConfig.profiles[profile].vendor_id = vendorId;
+      //     // signale.success("Vendor ID updated for the profile.\n");
+      //     // signale.success("Profile [" + profile + "] initialized successfully.");
+      //     res(updatedConfig);
+      //   });
     }).catch(err => {
       console.error(err);
       rej();
@@ -132,9 +132,9 @@ function requestWithUrl(
     profile,
     config,
     (updatedParams, updatedConfig) => {
-      console.log("Token gathered and refreshed");
+      // console.log("Token gathered and refreshed");
       requestLib(updatedParams, (error, response) => {
-        console.log("RequestLib completed");
+        // console.log("RequestLib completed");
         if (error || response === null || response.statusCode === null) {
           signale.fatal(
             "Request to the Alexa Skill Management API service failed."

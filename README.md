@@ -24,6 +24,8 @@ cd into 'api'
 
 Update the 'serverless.yml' file to listen for the skill url for events
 
+---------------------------------------------------------------------------------------
+
 Call 'serverless deploy' to deploy the lambda project
 
 Call 'aws lambda get-function-configuration --function-name SERVERLESS_SERVICE_NAME[my-alexa-hackkit-api-dev-mySkill]' to get the ARN of the lambda service

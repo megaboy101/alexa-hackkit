@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/megaboy101/alexa-hackkit#readme",
   "devDependencies": {
-    "lerna": "^2.11.0"
+    "chalk": "^2.4.1",
+    "lerna": "^2.11.0",
+    "request": "^2.87.0",
+    "signale": "^1.1.0",
+    "simple-oauth2": "^1.6.0"
   }
 }

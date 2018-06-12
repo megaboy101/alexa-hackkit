@@ -1,8 +1,11 @@
 const inquirer = require("inquirer");
+const chalk = require("chalk");
+const ora = require("ora");
 const jsonfile = require("jsonfile");
 const yaml = require("js-yaml");
 const path = require("path");
 const fs = require("fs");
+const util = require("util");
 const CWD = process.cwd();
 
 module.exports.generateProjectConfig = async function() {
@@ -64,7 +67,7 @@ module.exports.generateProjectConfig = async function() {
   }
 };
 
-module.exports.generate = function(projectConfig, askConfig) {
+module.exports.generate = function(projectConfig, askConfig, skillId) {
   const templatePath = path.join(__dirname, "../../templates/alexa-serverless");
   const projectRoot = `${CWD}/${projectConfig.name}`;
 
@@ -83,14 +86,31 @@ module.exports.generate = function(projectConfig, askConfig) {
   overwriteJsonFile(`${projectRoot}/package.json`, packageConfig);
 
   // Add the generated alexa-skill-kit config into the project
-  addAskConfig(askConfig, projectRoot);
+  addAskConfig(askConfig, skillId, projectRoot);
 
   // Insert user skill options into the project
   insertSkill(
     projectRoot,
     projectConfig.skillName,
-    projectConfig.skillDescription
+    projectConfig.skillDescription,
+    skillId
   );
+};
+
+module.exports.installProject = async function(projectName) {
+  try {
+    const loader = ora(
+      chalk.bold("Installing packages...")
+    ).start();
+    const exec = util.promisify(require("child_process").exec);
+    const command = `cd ${projectName} && npm install && cd packages/api && npm install && cd ../../`;
+    
+    await exec(command, { stdio: "inherit" });
+    loader.stop();
+  }
+  catch(err) {
+    console.error("Error installing npm packages");
+  }
 };
 
 function createDirectoryContents(templatePath, newProjectPath) {
@@ -118,16 +138,17 @@ function createDirectoryContents(templatePath, newProjectPath) {
   });
 }
 
-function addAskConfig(askConfig, projectRoot) {
+function addAskConfig(askConfig, skillId, projectRoot) {
   const configDir = `${projectRoot}/config`;
   const configFile = `${configDir}/ask.json`;
 
   fs.mkdirSync(configDir);
 
+  askConfig.skill_id = skillId;
   jsonfile.writeFileSync(configFile, askConfig, { spaces: 2 });
 }
 
-function insertSkill(projectRoot, skillName, skillDescription) {
+function insertSkill(projectRoot, skillName, skillDescription, skillId) {
   // Update skill file with skill name/desc
   const skillFile = jsonfile.readFileSync(
     `${projectRoot}/packages/alexa-client/skill.json`
@@ -167,7 +188,7 @@ function insertSkill(projectRoot, skillName, skillDescription) {
     handler: `handler.${skillName}`,
     events: [
       {
-        alexaSkill: "MY_SKILL_ID"
+        alexaSkill: skillId
       }
     ]
   };

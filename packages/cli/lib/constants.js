@@ -25,3 +25,30 @@ module.exports.PLACEHOLDER = {
     PROFILE_NAME: "__ENVIRONMENT_ASK_PROFILE__"
   }
 };
+
+module.exports.SKILL = {
+  RESOURCES: {
+    MANIFEST: "manifest",
+    INTERACTION_MODEL: "interactionModel"
+  },
+  STAGE: {
+    DEVELOPMENT: "development",
+    LIVE: "live",
+    CERTIFICATION: "certification"
+  },
+  BUILD_STATUS: {
+    SUCCESS: "SUCCEEDED",
+    FAILURE: "FAILURE",
+    IN_PROGRESS: "IN_PROGRESS"
+  },
+  SIMULATION_STATUS: {
+    SUCCESS: "SUCCESSFUL",
+    FAILURE: "FAILED",
+    IN_PROGRESS: "IN_PROGRESS"
+  },
+  VALIDATION_STATUS: {
+    SUCCESS: "SUCCESSFUL",
+    FAILURE: "FAILED",
+    IN_PROGRESS: "IN_PROGRESS"
+  }
+};
